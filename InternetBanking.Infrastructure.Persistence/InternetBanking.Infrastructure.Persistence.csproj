@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InternetBanking.Core.Application\InternetBanking.Core.Application.csproj" />
     <ProjectReference Include="..\InternetBanking.Core.Domain\InternetBanking.Core.Domain.csproj" />
   </ItemGroup>

@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InternetBanking.Core.Application\InternetBanking.Core.Application.csproj" />
     <ProjectReference Include="..\InternetBanking.Core.Domain\InternetBanking.Core.Domain.csproj" />
     <ProjectReference Include="..\InternetBanking.Infrastructure.Identity\InternetBanking.Infrastructure.Identity.csproj" />
