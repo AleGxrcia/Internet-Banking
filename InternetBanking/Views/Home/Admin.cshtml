@@ -1,0 +1,95 @@
+﻿@model InternetBanking.Core.Application.ViewModels.Dashboard.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin dashboard";
+}
+
+<div class="container mb-3">
+    <div class="row justify-content-md-center">
+        <h1 class="text-center">Dashboard</h1>
+        <hr class="w-50 mx-auto mb-3 border-dark-subtle">
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div class="col">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-credit-card-2-front-fill bg-primary"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.TotalTransactionsMade</h5>
+                    <p class="text-secondary m-0">Total transactions made</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-credit-card-2-back-fill bg-info"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.TransactionsMadeLast24Hours+</h5>
+                    <p class="text-secondary m-0">Transactions made last 24 hours</p>
+                </div>
+            </div>
+        </div>        
+        <div class="col">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-credit-card-2-front-fill bg-success"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.TotalPaymentsMade+</h5>
+                    <p class="text-secondary m-0">Total payments made</p>
+                </div>
+            </div>
+        </div>        
+        <div class="col">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-credit-card-2-back-fill bg-warning"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.PaymentsMadeLast24Hours+</h5>
+                    <p class="text-secondary m-0">Payments made last 24 hours</p>
+                </div>
+            </div>
+        </div>        
+        <div class="col-lg-4">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-person-fill-check"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.TotalActiveUsers+</h5>
+                    <p class="text-secondary m-0">Total active users</p>
+                </div>
+            </div>
+        </div>        
+        <div class="col-lg-4">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-person-fill-slash"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.TotalInactiveUsers+</h5>
+                    <p class="text-secondary m-0">Total inactive users</p>
+                </div>
+            </div>
+        </div>        
+        <div class="col-lg-4">
+            <div class="card card-box-shadow h-100">
+                <div class="card-body text-center">
+                    <div class="d-flex align-items-center justify-content-center mb-3 bsb-circle">
+                        <i class="bi bi-wallet-fill"></i>
+                    </div>
+                    <h5 class="display-6 fw-bold m-1">@Model.TotalProductsCreated+</h5>
+                    <p class="text-secondary m-0">Total assigned products</p>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
