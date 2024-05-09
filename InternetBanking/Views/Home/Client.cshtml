@@ -1,0 +1,55 @@
+﻿@using InternetBanking.Core.Application.Enums
+@using InternetBanking.Core.Application.ViewModels.Product
+@model List<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-5">
+    <h1 class="">Mis productos</h1>
+    <div class="border rounded-3 card-box-shadow bg-white p-4">
+        <table class="table table-hover">
+            <thead class="fw-bold fs-6">
+                <tr>
+                    <th class="">Número de cuenta</th>
+                    <th class="">Nombre del cliente</th>
+                    <th class="">Monto</th>
+                    <th class="">Deuda</th>
+                    <th class="">Tipo de producto</th>
+                    <th class="">Es principal</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (ProductViewModel product in Model)
+                {
+                    <tr class="align-middle">
+                        <td class="py-3 fs-6">
+                            @product.AccountNumber
+                        </td>
+                        <td class="py-3">
+                            @product.UserName
+                        </td>
+                        <td class="py-3">
+                            @string.Format("{0:C}", product.Balance)
+                        </td>
+                        <td class="py-3">
+                            @if (product.ProductType != ProductType.SavingAccount)
+                            {
+                                @string.Format("{0:C}", product.Debt)
+                            }
+                        </td>
+                        <td class="py-3">
+                            @product.ProductType
+                        </td>
+                        <td class="py-3">
+                            <span>@(product.IsPrincipal ? "Si" : "No")</span>
+                        </td>
+                        <td class="text-end align-items-center py-3">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

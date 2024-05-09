@@ -1,0 +1,69 @@
+﻿@model InternetBanking.Core.Application.ViewModels.Payment.SavePaymentViewModel
+
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Pago de prestamo";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mt-3">
+            <div class="card-header bg-primary-custom">
+                <h4>Pago de prestamo</h4>
+            </div>
+            <div class="card-body">
+                @if (Model.Products == null || Model.Products.Count == 0)
+                {
+                    <h4 class="mb-3">No hay productos registrados</h4>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                }
+                else
+                {
+                    if (Model.HasError)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p>@Model.Error</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    <form method="post" asp-asp-controller="Payment" asp-action="LoanPayment">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="SourceAccountNumber" class="form-label form-base"></label>
+                            <select asp-for="SourceAccountNumber" class="form-select">
+                                <option value="">Seleccione una cuenta</option>
+                                @foreach (var product in Model.Products)
+                                {
+                                    <option value="@product.AccountNumber">@($"{product.ProductType} [{product.AccountNumber}]")</option>
+                                }
+                            </select>
+                            <span asp-validation-for="SourceAccountNumber" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="DestinationAccountNumber" class="form-label form-base">Prestamo a pagar</label>
+                            <select asp-for="DestinationAccountNumber" class="form-select">
+                                <option value="">Seleccione el prestamo</option>
+                                @foreach (var product in Model.LoanProducts)
+                                {
+                                    <option value="@product.AccountNumber">@($"{product.ProductType} [{product.AccountNumber}]")</option>
+                                }
+                            </select>
+                            <span asp-validation-for="DestinationAccountNumber" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Amount" class="form-label"></label>
+                            <input type="number" asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+
+                        <button class="btn btn-primary">Guardar</button>
+                        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Cancelar</a>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

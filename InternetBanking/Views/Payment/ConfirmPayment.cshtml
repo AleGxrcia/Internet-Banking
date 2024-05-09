@@ -1,0 +1,27 @@
+﻿@model InternetBanking.Core.Application.ViewModels.Payment.ConfirmPaymentViewModel
+@{
+    ViewData["Title"] = "Pago a beneficiario";
+}
+
+<div class="container mt-5 w-50">
+    <div class="card card-box-shadow">
+        <div class="card-header bg-white fw-bold">
+            <h4>Confirmar pago al beneficiario: @Model.BeneficiaryName</h4>
+        </div>
+        <form method="post" asp-controller="Payment" asp-action="ConfirmPayment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="SourceAccountNumber" />
+            <input type="hidden" asp-for="DestinationAccountNumber" />
+            <input type="hidden" asp-for="Amount" />
+
+            <div class="card-body">
+                <span>¿Está seguro de que desea enviar el pago al beneficiario @Model.BeneficiaryName?</span>
+            </div>
+            <div class="card-footer mt-2 bg-white">
+                <button type="submit" class="btn btn-danger">Confirmar</button>
+                <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
