@@ -1,0 +1,25 @@
+﻿@using InternetBanking.Core.Application.ViewModels.User
+@model string
+@{
+    ViewData["Title"] = "Acceso denegado";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h2 class="alert-heading mb-4">No tiene permiso para acceder a esta sección</h2>
+                        <p>
+                            Lo sentimos, parece que no tiene permiso para acceder a esta sección. Por favor, vuelva al
+                            <a href="@Url.Action("Index", "Home")" class="alert-link">inicio</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <a class="btn btn-warning" asp-controller="Home" asp-action="Index"> *@

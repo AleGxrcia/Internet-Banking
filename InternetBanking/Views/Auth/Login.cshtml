@@ -1,0 +1,37 @@
+﻿@using InternetBanking.Core.Application.ViewModels.User
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5 w-25">
+    <h1>Iniciar Sesion</h1>
+    <div class="card card-box-shadow">
+        <div class="card-body">
+            @if (Model.HasError)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>@Model.Error</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <form method="post" asp-controller="Auth" asp-action="Login">
+
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input type="text" asp-for="UserName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+
+                <div class="text-center pt-3 mb-3">
+                    <button class="btn-primary btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
