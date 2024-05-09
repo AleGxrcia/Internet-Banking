@@ -1,0 +1,97 @@
+﻿@using InternetBanking.Core.Application.ViewModels.Beneficiary
+@using InternetBanking.Core.Application.ViewModels.User
+@model SaveBeneficiaryViewModel
+
+@{
+    List<BeneficiaryViewModel> beneficiaries = ViewBag.Beneficiaries;
+}
+
+<div class="container">
+    <h1 class="">Beneficiarios</h1>
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="bi bi-plus-circle-fill"></i>
+        Agregar beneficiario
+    </button>
+    <div class="border rounded-3 card-box-shadow bg-white p-4 mt-4">
+        <table class="table table-hover">
+            <thead class="fw-bold fs-6">
+                <tr>
+                    <th class="">Nombre de beneficiario</th>
+                    <th class="">Numero de cuenta</th>
+                    <th class="text-end">Opciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @if (beneficiaries != null)
+                {
+                    @foreach (BeneficiaryViewModel beneficiary in beneficiaries)
+                    {
+                        <tr class="align-middle">
+                            <td class="py-3 fs-6 truncate-text">
+                                @beneficiary.FullName
+                            </td>
+                            <td class="py-3 truncate-text">
+                                @beneficiary.AccountNumber
+                            </td>
+                            <td class="text-end align-items-center py-3">
+                                <a class="btn btn-danger btn-sm" asp-controller="Beneficiary" asp-action="Delete" asp-route-id=@beneficiary.Id>
+                                    <i class="bi bi-trash-fill"></i>
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-box-shadow">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar beneficiarios</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0">
+                @if (Model.HasError)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p>@Model.Error</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form method="post" asp-controller="Beneficiary" asp-action="AddBeneficiary">
+
+                    <div class="mb-3">
+                        <label asp-for="AccountNumberBeneficiary" class="form-label"></label>
+                        <input asp-for="AccountNumberBeneficiary" class="form-control me-2" placeholder="Ingresa el numero de cuenta" />
+                        <span asp-validation-for="AccountNumberBeneficiary" class="text-danger"></span>
+                    </div>
+
+                    <div class="pt-1 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-plus-circle-fill"></i>
+                            Agregar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var showModal = @Html.Raw(Model.HasError.ToString().ToLower());
+
+            if (showModal) {
+                $('#exampleModal').modal('show');
+            }
+        });
+    </script>
+}
