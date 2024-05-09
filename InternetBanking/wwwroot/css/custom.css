@@ -1,0 +1,66 @@
+﻿:root {
+    --bs-green: #00F0BE;
+    --bs-darkblue: #002855;
+    --bs-primary-hover: #00DCBE;
+    --bs-secondary-hover: #004164;
+    --bs-dark-primary: #0B0F19;
+    --bs-dark-secondary: #151822;
+    --bs-primary: #00F0BE;
+}
+
+body {
+    background-color: #F1F5F9;
+    font-family: 'Inter', sans-serif
+}
+
+.img-perfil {
+    width: 6rem;
+    height: 6rem;
+}
+
+.fw-strong {
+    font-weight: 500;
+}
+
+.card-box-shadow {
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+}
+
+.btn-secondary-custom {
+    background-color: #F0F2F5 !important;
+    color: black;
+}
+
+    .btn-secondary-custom:hover {
+        background-color: #E4E6EB !important;
+        color: black;
+    }
+
+.text-muted {
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.form-label {
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+
+.truncate-text {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bsb-circle i {
+    font-size: 2.5rem;
+    background-color: #1b1b32;
+    color: white;
+    padding: 8px 19px;
+    border-radius: 50%;
+}
