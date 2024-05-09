@@ -1,0 +1,37 @@
+﻿@using InternetBanking.Core.Application.Enums
+@model InternetBanking.Core.Application.ViewModels.Product.SaveProductViewModel
+@{
+    ViewData["Title"] = "Eliminar producto";
+    bool transferAmount = Model.ProductType == ProductType.SavingAccount && Model.Amount > 0;
+}
+
+<div class="container mt-5 w-50">
+    <div class="card card-box-shadow">
+        <div class="card-header bg-white fw-bold">
+            <h4>Eliminar producto: @Model.AccountNumber</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-controller="Product" asp-action="DeleteProduct">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+
+                <div class="mb-3">
+                    @if (transferAmount)
+                    {
+                        <span>¿Está seguro de que desea eliminar el producto y transferir el monto a la cuenta principal?</span>
+                    }
+                    else
+                    {
+                        <span>¿Está seguro de que desea eliminar el producto?</span>
+                    }
+                </div>
+                <div class="card-footer mt-2 bg-white">
+                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                    <a class="btn btn-secondary" asp-action="Index" asp-route-userId="@Model.UserId">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

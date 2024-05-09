@@ -1,0 +1,27 @@
+﻿@model InternetBanking.Core.Application.ViewModels.User.SaveUserViewModel
+@{
+    ViewData["Title"] = "Confirmar accion";
+    bool isActive = Model.IsActive == true ? true : false;
+}
+
+<div class="container mt-5 w-25">
+    <div class="card card-box-shadow">
+        <div class="card-header bg-white fw-bold">
+            <h4>@(isActive ? $"Inactivar al usuario: {Model.UserName}" : $"Activar al usuario: {Model.UserName}")</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-controller="User" asp-action="@(isActive ? "InactiveUser":"ActiveUser")">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    ¿Estás seguro de que deseas realizar esta acción?
+                </div>
+                <div class="card-footer mt-2 bg-white">
+                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

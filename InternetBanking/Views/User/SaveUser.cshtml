@@ -1,0 +1,127 @@
+﻿@using InternetBanking.Core.Application.ViewModels.User
+@using InternetBanking.Core.Application.Enums
+@model SaveUserViewModel
+
+@{
+    ViewData["Title"] = "Registrar usuario";
+    bool editMode = Model.Id == null ? false : true;
+
+}
+
+<div class="container mt-5 w-50">
+    <div class="card card-box-shadow">
+        <div class="card-header bg-white">
+            <h3>@(editMode ? $"Editando al usuario: {Model.UserName}" : "Registrando usuario")</h3>
+        </div>
+        <div class="card-body">
+            @if (Model.HasError)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>@Model.Error</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <form method="post" asp-controller="User" asp-action="@(editMode ? "Edit":"Create")">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="IdNumber" class="form-label"></label>
+                    <input required asp-for="IdNumber" class="form-control" />
+                    <span asp-validation-for="IdNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <div class="input-group">
+                        <div class="input-group-text">@@</div>
+                        <input required asp-for="UserName" class="form-control" />
+                    </div>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                @if (!editMode)
+                {
+                    <div class="mb-3">
+                        <label asp-for="UserType" class="form-label"></label>
+                        <select asp-for="UserType" asp-items="Html.GetEnumSelectList<Roles>()"
+                                class="form-select">
+                            <option value=0>Seleccione un tipo de usuario</option>
+                        </select>
+                        <span asp-validation-for="UserType" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3" id="InitialAmountDiv" style="display: none;">
+                        <label asp-for="InitialAmount" class="form-label"></label>
+                        <input type="number" asp-for="InitialAmount" class="form-control" />
+                        <span asp-validation-for="InitialAmount" class="text-danger"></span>
+                    </div>
+                }
+                @if (editMode && Model.UserType == Roles.Client)
+                {
+                    <div class="mb-3">
+                        <label asp-for="InitialAmount" class="form-label"></label>
+                        <input type="number" asp-for="InitialAmount" class="form-control" />
+                        <span asp-validation-for="InitialAmount" class="text-danger"></span>
+                    </div>
+                }
+
+                <div class="text-end mt-4">
+                    <button class="btn btn-primary">Guardar</button>
+                    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            $('#UserType').change(function () {
+                if ($(this).val() == @((int)Roles.Client)) {
+                    $('#InitialAmountDiv').show();
+                } else {
+                    $('#InitialAmountDiv').hide();
+                    $('#InitialAmount').val(null);
+                }
+            });
+        });
+    </script>
+}

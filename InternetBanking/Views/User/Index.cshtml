@@ -1,0 +1,91 @@
+﻿@using InternetBanking.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http;
+@using InternetBanking.Core.Application.Helpers;
+@using InternetBanking.Core.Application.Enums;
+@using InternetBanking.Core.Application.ViewModels.User;
+@inject IHttpContextAccessor httpContextAccessor;
+@model List<UserViewModel>
+
+@{
+    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+    ViewData["Title"] = "Mantenimiento de usuarios";
+}
+
+<div class="container">
+    <h1 class="">Usuarios</h1>
+    <a asp-controller="User" asp-action="Create" class="btn btn-primary m-3">
+        <i class="bi bi-plus-circle-fill"></i>
+        Registrar usuario
+    </a>
+    <div class="border rounded-3 card-box-shadow bg-white p-4 mt-2">
+        <table class="table table-hover">
+            <thead class="fw-bold fs-6">
+                <tr>
+                    <th class="">Nombre</th>
+                    <th class="">Cedula</th>
+                    <th class="">Correo</th>
+                    <th class="">Usuario</th>
+                    <th class="">Tipo de usuario</th>
+                    <th class="">Estado</th>
+                    <th class="text-end">Opciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (UserViewModel user in Model)
+                {
+                    <tr class="align-middle">
+                        <td class="py-3 fs-6 truncate-text">
+                            @user.FirstName @user.LastName
+                        </td>
+                        <td class="py-3 truncate-text">
+                            @user.IdNumber
+                        </td>
+                        <td class="py-3 truncate-text">
+                            @user.Email
+                        </td>
+                        <td class="py-3 truncate-text">
+                            @user.UserName
+                        </td>
+                        <td class="py-3 truncate-text">
+                            <span>@(user.UserType == Roles.Admin.ToString() ? "Administrador" : "Cliente")</span>
+                        </td>
+                        <td class="py-3 truncate-text">
+                            <span>@(user.IsActive ? "Activo" : "Inactivo")</span>
+                        </td>
+                        <td class="text-end align-items-center py-3">
+                            @if (user.Id != User.Id)
+                            {
+                                if (user.UserType != Roles.Admin.ToString())
+                                {
+                                    <a class="btn btn-primary btn-sm" asp-controller="Product" asp-action="Index" asp-route-userId=@user.Id>
+                                        <i class="bi bi-wallet-fill"></i>  
+                                        Ver Productos
+                                    </a>
+                                }
+                                @if (!user.IsActive)
+                                {
+                                    <a class="btn btn-info btn-sm" asp-controller="User" asp-action="ConfirmAction" asp-route-id=@user.Id>
+                                        <i class="bi bi-person-lines-fill"></i>
+                                        Activar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-info btn-sm" asp-controller="User" asp-action="ConfirmAction" asp-route-id=@user.Id>
+                                        <i class="bi bi-person-lines-fill"></i>
+                                        Desactivar
+                                    </a>
+                                }
+                                <a class="btn btn-secondary btn-sm" asp-controller="User" asp-action="Edit" asp-route-id=@user.Id>
+                                    <i class="bi bi-pencil-square"></i>
+                                    Editar
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

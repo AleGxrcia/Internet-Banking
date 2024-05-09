@@ -1,0 +1,60 @@
+﻿@using InternetBanking.Core.Application.Enums
+@using InternetBanking.Core.Application.ViewModels.Product
+@model SaveProductViewModel
+
+@{
+    ViewData["Title"] = "Crear producto";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mt-3">
+            <div class="card-header fw-bold">
+                <h4>Creando un producto</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-asp-controller="Appointment" asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="UserId" />
+
+                    <div class="mb-3">
+                        <label asp-for="ProductType" class="form-label"></label>
+                        <select asp-for="ProductType" asp-items="Html.GetEnumSelectList<ProductType>()"
+                                class="form-select">
+                            <option value=0>Seleccione un tipo de cuenta</option>
+                        </select>
+                        <span asp-validation-for="ProductType" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label id="AmountLabel" asp-for="Amount" class="form-label"></label>
+                        <input type="number" asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+
+                    <button class="btn btn-primary">Guardar</button>
+                    <a class="btn btn-secondary" asp-action="Index" asp-route-userId="@Model.UserId">Cancelar</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function () {
+            $('#ProductType').change(function () {
+                if ($(this).val() == @((int)ProductType.CreditCard)) {
+                    $('#AmountLabel').text('Limite de la tarjeta');
+                } else if ($(this).val() == @((int)ProductType.Loan)) {
+                    $('#AmountLabel').text('Monto del préstamo');
+                } else {
+                    $('#AmountLabel').text('Monto');
+                }
+            });
+        });
+    </script>
+}

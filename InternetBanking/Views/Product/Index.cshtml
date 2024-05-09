@@ -1,0 +1,86 @@
+﻿@using InternetBanking.Core.Application.Enums
+@using InternetBanking.Core.Application.ViewModels.Product
+@model List<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Listado de productos";
+    var userId = ViewBag.UserId;
+}
+
+<div class="container">
+    <h1 class="">Productos</h1>
+    <a asp-controller="Product" asp-action="Create" asp-route-userId="@userId" class="btn btn-primary m-3">
+        <i class="bi bi-plus-circle-fill"></i>
+        Crear producto
+    </a>
+    <div class="border rounded-3 card-box-shadow bg-white p-4 mt-2">
+        <table class="table table-hover">
+            <thead class="fw-bold fs-6">
+                <tr>
+                    <th class="">Número de cuenta</th>
+                    <th class="">Nombre del cliente</th>
+                    <th class="">Balance</th>
+                    <th class="">Deuda</th>
+                    <th class="">Tipo de producto</th>
+                    <th class="">Es principal</th>
+                    <th class="text-end">Opciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (ProductViewModel product in Model)
+                {
+                    <tr class="align-middle">
+                        <td class="py-3 fs-6">
+                            @product.AccountNumber
+                        </td>
+                        <td class="py-3">
+                            @product.UserName
+                        </td>
+                        <td class="py-3">
+                            @string.Format("{0:C}", product.Balance)
+                        </td>
+                        <td class="py-3">
+                            @string.Format("{0:C}", product.Debt)
+                        </td>
+                        <td class="py-3">
+                            @product.ProductType
+                        </td>
+                        <td class="py-3">
+                            <span>@(product.IsPrincipal ? "Si" : "No")</span>
+                        </td>
+                        <td class="text-end align-items-center py-3">
+                            @if (!product.IsPrincipal)
+                            {
+                                if (product.ProductType == ProductType.SavingAccount)
+                                {
+                                    <a class="btn btn-danger btn-sm" asp-controller="Product" asp-action="Delete" asp-route-id=@product.Id>
+                                        <i class="bi bi-trash-fill"></i>
+                                        Eliminar
+                                    </a>
+                                }
+                                else
+                                {
+                                    if (product.Debt > 0)
+                                    {
+                                        <a class="btn btn-danger btn-sm disabled" disabled>
+                                            <i class="bi bi-trash-fill"></i>
+                                            Eliminar
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger btn-sm" asp-controller="Product" asp-action="Delete" asp-route-id=@product.Id>
+                                            <i class="bi bi-trash-fill"></i>
+                                            Eliminar
+                                        </a>
+                                    }
+
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
