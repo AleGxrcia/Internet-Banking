@@ -48,3 +48,6 @@ To run the Internet Banking App, you'll need:
 3. Update the server name in `appsettings.Development.json` to match your environment.
 4. Run the `Update-Database` command in the Package Management Console to update the database schema.
 5. Run the project, and it will open in your default browser.
+
+## Developer
+- [Federico A. Garcia](https://github.com/AleGxrcia)
